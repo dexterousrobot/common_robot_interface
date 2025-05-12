@@ -171,3 +171,47 @@ Extension of CRI to use with Dobot Robots and Tactile simulator:
 Nathan Lepora - n.lepora@bristol.ac.uk
 
 [https://github.com/jloyd237/cri](https://github.com/jlloyd237/)
+
+
+### PyPI packaging
+You will need to be added to the PyPI project as a collaborator to make any changes.
+
+To update the version of this package on PyPI:
+ - create a PyPI account, if you don't already have one
+ - create a PyPI API token from the PyPI website
+ - put it in your ~/.pypirc file:
+```
+[distutils]
+index-servers =
+    pypi
+
+[pypi]
+username = __token__
+password = YOUR_API_TOKEN   <-- change this
+```
+ - ensure your package version is updated in setup.py
+ - build the package:
+```sh
+pip install build
+python -m build
+```
+ - upload to PyPI:
+```sh
+pip install twine
+python -m twine upload dist/*
+```
+ - users can now install your package using:
+```sh
+pip install common-robot-interface
+```
+
+If you're testing changes before releasing to the main PyPI repository, you can use TestPyPI:
+```sh
+python -m twine upload --repository testpypi dist/*
+```
+
+And users can install from TestPyPI with:
+```sh
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ common-robot-interface
+```
+You need the `extra-index-url` parameter to ensure that dependencies are found on the main PyPI repository.

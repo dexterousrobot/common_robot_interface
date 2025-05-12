@@ -1,0 +1,6 @@
+include LICENSE
+include README.md
+include requirements.txt
+recursive-include cri/ur *.xml
+recursive-include cri/dobot/magician *.dll
+recursive-include images *.png
